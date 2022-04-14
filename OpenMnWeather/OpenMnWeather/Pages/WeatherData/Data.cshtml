@@ -1,0 +1,22 @@
+﻿@page
+@model OpenMnWeather.Pages.WeatherData.DataModel
+@{
+}
+
+<table class="table table-striped">
+    <tr>
+        <th>Station Id</th>
+        <th>Observation Time</th>
+        <th>Temperature (Degrees C)</th>
+        <th>Precipitation (Inches)</th>
+    </tr>
+    @foreach(var metar in Model.Metars)
+            {
+                <tr>
+                    <th>@metar.StationId</th>
+                    <th>@metar.ObservationTime.ToLocalTime()</th>
+                    <th>@metar.TempC</th>
+                    <th>@metar.PrecipIn</th>
+                </tr>
+            }
+</table>
