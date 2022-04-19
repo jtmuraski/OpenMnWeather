@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <PackageReference Include="MetarAPI" Version="0.2.3" />
+    <PackageReference Include="Syncfusion.EJ" Version="20.1.0.48" />
+    <PackageReference Include="Syncfusion.EJ2.AspNet.Core" Version="20.1.0.50" />
   </ItemGroup>
 
 </Project>
