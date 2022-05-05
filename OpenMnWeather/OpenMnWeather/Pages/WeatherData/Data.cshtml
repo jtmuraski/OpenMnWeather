@@ -1,10 +1,18 @@
-﻿@page
+﻿@page "{StartDate:DateTime?}/{EndDate:DateTime?}"
 @model OpenMnWeather.Pages.WeatherData.DataModel
 @{
 }
 
 <div>
-    <ejs-calendar id="calendar"></ejs-calendar>
+    <form method="get" asp-page-handler="OnPost">
+        <label asp-for="StartDate">Start Date</label>
+        <div id="errorMessage">
+            <span asp-validation-for="StartDate"></span>
+        </div>  
+       <ejs-datepicker id="StartDate" ejs-for="StartDate"></ejs-datepicker>
+        <ejs-datepicker id="EndDate" ejs-for="EndDate"></ejs-datepicker>
+        <ejs-button id="submitButton" content="Search These Dates"></ejs-button>
+    </form>
 </div>
 <table class="table table-striped">
     <tr>
