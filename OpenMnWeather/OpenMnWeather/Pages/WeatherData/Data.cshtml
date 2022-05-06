@@ -11,23 +11,18 @@
         </div>  
        <ejs-datepicker id="StartDate" ejs-for="StartDate"></ejs-datepicker>
         <ejs-datepicker id="EndDate" ejs-for="EndDate"></ejs-datepicker>
-        <ejs-button id="submitButton" content="Search These Dates"></ejs-button>
+        <button class="btn btn-primary" type="submit">Search</button>
     </form>
 </div>
-<table class="table table-striped">
-    <tr>
-        <th>Station Id</th>
-        <th>Observation Time</th>
-        <th>Temperature (Degrees C)</th>
-        <th>Precipitation (Inches)</th>
-    </tr>
-    @foreach(var metar in Model.Metars)
-            {
-                <tr>
-                    <th>@metar.StationId</th>
-                    <th>@metar.ObservationTime.ToLocalTime()</th>
-                    <th>@metar.TempC</th>
-                    <th>@metar.PrecipIn</th>
-                </tr>
-            }
-</table>
+
+<div class="tree-grid">
+    <ejs-treegrid id="TreeGrid" dataSource="@Model.Metars" childMapping="StationId" treeColumnIndex="0">
+        <e-treegrid-columns>
+            <e-treegrid-column field="StationId" headerText="Station Id"></e-treegrid-column>
+            <e-treegrid-column field="ObservationTime" headerText="Report Time" format="MM/dd/yyyy hh:mm"></e-treegrid-column>
+            <e-treegrid-column field="TempC" headerText="Temperature (Celsius)"></e-treegrid-column>
+            <e-treegrid-column field="PrecipIn" headerText="Precipation (Inches)"></e-treegrid-column>
+            <e-treegrid-column field="RawText" headerText="Raw Metar Text"></e-treegrid-column>
+        </e-treegrid-columns>
+    </ejs-treegrid>
+</div>

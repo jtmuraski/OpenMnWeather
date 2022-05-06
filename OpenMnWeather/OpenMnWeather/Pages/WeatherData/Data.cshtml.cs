@@ -21,7 +21,7 @@ namespace OpenMnWeather.Pages.WeatherData
 
         // Page Models
         public IEnumerable<Metar> Metars;
-        //public DateRangePicker DateRange = new DateRangePicker() { Dates = new DateTime?[] { DateTime.Now.AddDays(-2), DateTime.Now } };
+        public IEnumerable<IGrouping<string, Metar>> GroupedMetars;
         [BindProperty(SupportsGet =true)]
         public DateTime? StartDate { get; set; }
 
@@ -38,13 +38,14 @@ namespace OpenMnWeather.Pages.WeatherData
             {
                 Metars = _metars.FilterByTime((DateTime)startDate, (DateTime)endDate);
                 Metars = Metars.OrderBy(report => report.ObservationTime);
+                GroupedMetars = Metars.GroupBy(metar => metar.StationId);
             }
             else
             {
                 StartDate = DateTime.Now.AddDays(-2);
                 EndDate = DateTime.Now;
                 Metars = _metars.FilterByTime((DateTime)StartDate, (DateTime)EndDate);
-                Metars = Metars.OrderBy(report => report.ObservationTime);
+                Metars = Metars.OrderBy(report => report.StationId);
                 //DateRange = new DateRangePicker() { Dates = new DateTime?[] { DateTime.Now.AddDays(-2), DateTime.Now } };
             }                        
             return Page();
