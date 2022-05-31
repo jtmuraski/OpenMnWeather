@@ -16,7 +16,7 @@
 </div>
 
 <div class="tree-grid">
-    <ejs-treegrid id="TreeGrid" dataSource="@Model.Metars" childMapping="StationId" treeColumnIndex="0">
+    <ejs-treegrid id="TreeGrid" dataSource="@Model.GridModels" childMapping="ShortMetars" treeColumnIndex="0">
         <e-treegrid-columns>
             <e-treegrid-column field="StationId" headerText="Station Id"></e-treegrid-column>
             <e-treegrid-column field="ObservationTime" headerText="Report Time" format="MM/dd/yyyy hh:mm"></e-treegrid-column>

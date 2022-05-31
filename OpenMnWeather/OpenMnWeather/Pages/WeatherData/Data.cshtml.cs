@@ -27,6 +27,9 @@ namespace OpenMnWeather.Pages.WeatherData
 
         [BindProperty(SupportsGet =true)]
         public DateTime? EndDate { get; set; }
+        public List<QuickViewTreeGridModel> GridModels { get; set; }
+
+
         public DataModel(IConfiguration config, IMetarActions metars)
         {
             this._config = config;
@@ -47,7 +50,30 @@ namespace OpenMnWeather.Pages.WeatherData
                 Metars = _metars.FilterByTime((DateTime)StartDate, (DateTime)EndDate);
                 Metars = Metars.OrderBy(report => report.StationId);
                 //DateRange = new DateRangePicker() { Dates = new DateTime?[] { DateTime.Now.AddDays(-2), DateTime.Now } };
-            }                        
+            }
+
+            var stations = Metars.Select(station => station.StationId).Distinct();
+            GridModels = new List<QuickViewTreeGridModel>();
+            foreach(var station in stations)
+            {
+                QuickViewTreeGridModel stationModel = new QuickViewTreeGridModel();
+                stationModel.StationId = station;
+               
+                var stationMetars = Metars.Where(metar => metar.StationId == station).ToList();
+                foreach(var metar in stationMetars)
+                {
+                    ShortViewMetar shortViewMetar = new ShortViewMetar()
+                    {
+                        Id = metar.Id,
+                        ObservationTime = metar.ObservationTime,
+                        TempC = metar.TempC,
+                        Precp = metar.PrecipIn,
+                        RawText = metar.RawText
+                    };
+                    stationModel.ShortMetars.Add(shortViewMetar);
+                }
+                GridModels.Add(stationModel);
+            }
             return Page();
         }
 
